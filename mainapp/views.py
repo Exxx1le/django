@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
+
 from mainapp import forms as mainapp_forms
 from mainapp import models as mainapp_models
 from mainapp import tasks as mainapp_tasks
@@ -36,10 +37,8 @@ class NewsCreateView(PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy("mainapp:news")
     permission_required = ("mainapp.add_news",)
 
-
 class NewsDetailView(DetailView):
     model = mainapp_models.News
-
 
 class NewsUpdateView(PermissionRequiredMixin, UpdateView):
     model = mainapp_models.News
@@ -89,7 +88,6 @@ class CoursesDetailView(TemplateView):
             )
             # 5 minutes
             cache.set(f"feedback_list_{pk}", context["feedback_list"], timeout=300)
-
             # Archive object for tests --->
             import pickle
 
